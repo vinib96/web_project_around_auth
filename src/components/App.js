@@ -1,28 +1,33 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
+import React, { useEffect, useState, useCallback } from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import ProtectedRoute from './ProtectedRoute';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import ConfirmDeletePopup from './ConfirmDeletePopup';
+import AddPlacePopup from './AddPlacePopup';
+import ImagePopup from './ImagePopup';
+import Login from './Login';
+import Register from './Register';
+import api from '../utils/api';
+import * as auth from '../utils/auth';
 
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import AddPlacePopup from "./AddPlacePopup";
-import ImagePopup from "./ImagePopup";
-import api from "../utils/api";
-
-import { UserContext } from "../contexts/CurrentUserContext";
+import { UserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [selectedCardToDelete, setSelectedCardToDelete] = useState("");
+  const [selectedCardToDelete, setSelectedCardToDelete] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
-    name: "",
-    about: "",
-    avatar: "",
+    name: '',
+    about: '',
+    avatar: '',
   });
 
   useEffect(() => {
@@ -31,16 +36,16 @@ function App() {
 
   const EnableEsc = () => {
     const escFunction = useCallback((event) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         closeAllPopups();
       }
     }, []);
 
     useEffect(() => {
-      document.addEventListener("keydown", escFunction, false);
+      document.addEventListener('keydown', escFunction, false);
 
       return () => {
-        document.removeEventListener("keydown", escFunction, false);
+        document.removeEventListener('keydown', escFunction, false);
       };
     }, [escFunction]);
   };
@@ -88,7 +93,7 @@ function App() {
   function handleCardDelete(cardId) {
     api.removeCard(cardId).then(() => {
       setCards(cardsApp.filter((card) => card._id !== cardId));
-      setSelectedCardToDelete("");
+      setSelectedCardToDelete('');
     });
   }
 
@@ -103,24 +108,67 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCardToDelete("");
+    setSelectedCardToDelete('');
     setSelectedCard({});
   }
 
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [isLoggedIn]);
+
   return (
-    <div className="App">
-      <div className="page">
+    <div className='App'>
+      <div className='page'>
         <UserContext.Provider value={currentUser}>
-          <Header />
-          <Main
-            onEditProfileClick={handleEditProfileClick}
-            onEditAvatarClick={handleEditAvatarClick}
-            onAddPlaceClick={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onConfirmClick={handleConfirmDeleteClick}
-            cardsApp={cardsApp}
-          ></Main>
+          <BrowserRouter>
+            <Switch>
+              <ProtectedRoute
+                path='/main'
+                component={
+                  <Main
+                    onEditProfileClick={handleEditProfileClick}
+                    onEditAvatarClick={handleEditAvatarClick}
+                    onAddPlaceClick={handleAddPlaceClick}
+                    onCardClick={handleCardClick}
+                    onCardLike={handleCardLike}
+                    onConfirmClick={handleConfirmDeleteClick}
+                    cardsApp={cardsApp}
+                  ></Main>
+                }
+              />
+              <Route path='/register'>
+                <Register />
+              </Route>
+              <Route path='/login'>
+                <Login isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
+              </Route>
+              <Route exact path='/'>
+                {isLoggedIn ? (
+                  <Redirect to='/main' />
+                ) : (
+                  <Redirect to='/login' />
+                )}
+              </Route>
+            </Switch>
+          </BrowserRouter>
+
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}

@@ -18,16 +18,16 @@
   margin: 5% auto;
   display: grid;
   grid-template-areas:
-    ". button"
-    "form .";
+    '. button'
+    'form .';
 }
 
 .popup__container_image {
   max-width: fit-content;
   grid-template-areas:
-    ". button"
-    "img ."
-    "txt .";
+    '. button'
+    'img .'
+    'txt .';
 }
 
 .popup__form-container {
@@ -35,7 +35,7 @@
   width: 430px;
 
   padding: 26px;
-  background: white;
+
   border-radius: 10px;
   grid-area: form;
 }
@@ -149,16 +149,16 @@
 @media screen and (max-width: 880px) {
   .popup__container {
     grid-template-areas:
-      "button"
-      "form";
+      'button'
+      'form';
     width: 90%;
   }
   .popup__container_image {
     max-width: fit-content;
     grid-template-areas:
-      ". button"
-      "img ."
-      "txt .";
+      '. button'
+      'img .'
+      'txt .';
   }
   .popup__form-container {
     width: unset;

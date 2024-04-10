@@ -1,5 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -29,6 +35,8 @@ function App() {
     about: '',
     avatar: '',
   });
+
+  const history = useHistory();
 
   useEffect(() => {
     api.getUserInfo().then(setCurrentUser);
@@ -139,8 +147,22 @@ function App() {
         <UserContext.Provider value={currentUser}>
           <BrowserRouter>
             <Switch>
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 path='/main'
+                component={
+                 
+                }
+              /> */}
+              <Route path='/register'>
+                <Register />
+              </Route>
+              <Route path='/login'>
+                <Login handleLogin={handleLogin} />
+              </Route>
+              <ProtectedRoute
+                exact
+                path='/'
+                isLoggedIn={isLoggedIn}
                 component={
                   <Main
                     onEditProfileClick={handleEditProfileClick}
@@ -153,19 +175,6 @@ function App() {
                   ></Main>
                 }
               />
-              <Route path='/register'>
-                <Register />
-              </Route>
-              <Route path='/login'>
-                <Login isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
-              </Route>
-              <Route exact path='/'>
-                {isLoggedIn ? (
-                  <Redirect to='/main' />
-                ) : (
-                  <Redirect to='/login' />
-                )}
-              </Route>
             </Switch>
           </BrowserRouter>
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom';
 import Header from './Header';
 
 import * as auth from '../utils/auth';
 
-function Login() {
+function Login({ handleLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -13,7 +13,9 @@ function Login() {
     e.preventDefault();
     auth.authorize(email, password).then((res) => {
       console.log(res);
-      history.push('/main');
+      handleLogin();
+      history.push('/');
+      console.log('ola');
     });
   }
 

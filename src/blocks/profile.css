@@ -103,6 +103,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  .profile__input {
+    width: 55%;
+  }
   .profile__add-button {
     width: 70%;
     margin: 36px 0;

@@ -230,10 +230,9 @@ function App() {
                 onCardDelete={handleCardDelete}
               />
               <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
-              <Footer />
             </Route>
           </Switch>
+          <Footer />
         </UserContext.Provider>
       </div>
     </div>

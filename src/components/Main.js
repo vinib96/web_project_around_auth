@@ -6,8 +6,6 @@ import Header from './Header';
 
 import Card from './Card';
 
-import * as auth from '../utils/auth';
-
 function Main({
   onClick,
   onEditProfileClick,

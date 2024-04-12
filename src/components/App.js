@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
-import Header from './Header';
+
 import Main from './Main';
 import Footer from './Footer';
 import ProtectedRoute from './ProtectedRoute';
@@ -26,7 +26,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInfoToolOpen, setIsInfoToolOpen] = useState(false);
   const [popupType, setPopupType] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+
   const [userEmail, setUserEmail] = useState('');
 
   const [currentUser, setCurrentUser] = useState({

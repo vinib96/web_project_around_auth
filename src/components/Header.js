@@ -13,16 +13,17 @@ function Header({ text, exit }) {
             Around'
             className='logo__header-image'
           />
+          <div className='header__hamburguer'>
+            <button className='header__hamburguer_icon' onClick={menuOpen}>
+              <img src={require('../styles/images/hamburguer icon.png')} />
+            </button>
+          </div>
           <div className='header__login'>
             <span>{text}</span>
             <span>{exit}</span>
           </div>
         </div>
-        <div className='header__hamburguer'>
-          <button className='header__hamburguer_icon' onClick={menuOpen}>
-            <img src={require('../styles/images/hamburguer icon.png')} />
-          </button>
-        </div>
+
         <div className='header__menu'>
           <span>{text}</span>
           <span className='header__logout'>{exit}</span>

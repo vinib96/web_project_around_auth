@@ -50,6 +50,10 @@
 }
 
 @media screen and (max-width: 880px) {
+  .header {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
   .header__login {
     display: none;
   }
@@ -59,7 +63,7 @@
     align-self: flex-end;
   }
   .header__menu {
-    display: flex;
+    display: none;
     color: #ffffff;
     text-align: center;
     flex-direction: column;
@@ -67,6 +71,7 @@
     opacity: 0;
   }
   .header__menu_open {
+    display: flex;
     visibility: visible;
     opacity: 1;
   }

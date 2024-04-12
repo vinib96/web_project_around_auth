@@ -6,6 +6,8 @@ import Header from './Header';
 
 import Card from './Card';
 
+import * as auth from '../utils/auth';
+
 function Main({
   onClick,
   onEditProfileClick,
@@ -16,13 +18,21 @@ function Main({
   onCardDelete,
   cardsApp,
   onConfirmClick,
-  onSubmit,
+  handleLogout,
+  userEmail,
 }) {
   const currentUser = useContext(UserContext);
 
   return (
     <>
-      <Header />
+      <Header
+        text={userEmail}
+        exit={
+          <button className='header__logout' onClick={handleLogout}>
+            Sair
+          </button>
+        }
+      />
       <section className='profile' onClick={onClick}>
         <div className='profile__container'>
           <button onClick={onEditAvatarClick} className='profile__pic-button'>

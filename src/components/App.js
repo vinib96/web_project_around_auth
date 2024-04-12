@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  Redirect,
-  useHistory,
-} from 'react-router-dom';
+import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -15,6 +9,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
+import InfoToolTip from './InfoToolTip';
 import Login from './Login';
 import Register from './Register';
 import api from '../utils/api';
@@ -29,6 +24,10 @@ function App() {
   const [selectedCardToDelete, setSelectedCardToDelete] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isInfoToolOpen, setIsInfoToolOpen] = useState(false);
+  const [popupType, setPopupType] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
   const [currentUser, setCurrentUser] = useState({
     name: '',
@@ -36,7 +35,7 @@ function App() {
     avatar: '',
   });
 
-  const history = useHistory();
+  let history = useHistory();
 
   useEffect(() => {
     api.getUserInfo().then(setCurrentUser);
@@ -118,10 +117,36 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCardToDelete('');
     setSelectedCard({});
+    setIsInfoToolOpen(false);
+  }
+
+  function handleRegister(success) {
+    setIsInfoToolOpen(true);
+    setPopupType(success);
+  }
+
+  function handleRegisterError(fail) {
+    setIsInfoToolOpen(true);
+    setPopupType(fail);
+  }
+
+  function handleClose() {
+    if (popupType === 'success') {
+      setIsInfoToolOpen(false);
+      history.push('/login');
+    } else {
+      setIsInfoToolOpen(false);
+    }
   }
 
   function handleLogin() {
     setIsLoggedIn(true);
+  }
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+    localStorage.removeItem('token');
+    history.push('/login');
   }
 
   useEffect(() => {
@@ -131,7 +156,11 @@ function App() {
       auth
         .checkToken(token)
         .then((res) => {
-          setIsLoggedIn(true);
+          if (res) {
+            setIsLoggedIn(true);
+            history.push('/');
+            setUserEmail(res.data.email);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -139,26 +168,28 @@ function App() {
     } else {
       setIsLoggedIn(false);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, userEmail]);
 
   return (
     <div className='App'>
       <div className='page'>
         <UserContext.Provider value={currentUser}>
-          <BrowserRouter>
-            <Switch>
-              {/* <ProtectedRoute
-                path='/main'
-                component={
-                 
-                }
-              /> */}
-              <Route path='/register'>
-                <Register />
-              </Route>
-              <Route path='/login'>
-                <Login handleLogin={handleLogin} />
-              </Route>
+          <Switch>
+            <Route path='/register'>
+              <Register
+                handleRegister={handleRegister}
+                handleRegisterError={handleRegisterError}
+              />
+              <InfoToolTip
+                isOpen={isInfoToolOpen}
+                popupType={popupType}
+                handleClose={handleClose}
+              />
+            </Route>
+            <Route path='/login'>
+              <Login handleLogin={handleLogin} />
+            </Route>
+            <Route path='/'>
               <ProtectedRoute
                 exact
                 path='/'
@@ -172,40 +203,41 @@ function App() {
                     onCardLike={handleCardLike}
                     onConfirmClick={handleConfirmDeleteClick}
                     cardsApp={cardsApp}
+                    handleLogout={handleLogout}
+                    userEmail={userEmail}
                   ></Main>
                 }
               />
-            </Switch>
-          </BrowserRouter>
+              <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}
+              />
+              <AddPlacePopup
+                isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
+                onAddPlaceSubmit={handleAddPlaceSubmit}
+              />
 
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlaceSubmit={handleAddPlaceSubmit}
-          />
+              <EditAvatarPopup
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar}
+              />
+              <ConfirmDeletePopup
+                cardId={selectedCardToDelete}
+                onClose={closeAllPopups}
+                onCardDelete={handleCardDelete}
+              />
+              <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-          />
-          <ConfirmDeletePopup
-            cardId={selectedCardToDelete}
-            onClose={closeAllPopups}
-            onCardDelete={handleCardDelete}
-          />
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
-          <Footer />
+              <Footer />
+            </Route>
+          </Switch>
         </UserContext.Provider>
       </div>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

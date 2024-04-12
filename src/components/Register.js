@@ -4,17 +4,25 @@ import Header from './Header';
 
 import * as auth from '../utils/auth';
 
-function Register() {
+function Register({ handleRegister, handleRegisterError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
-    auth.register(email, password).then((res) => {
-      console.log(res);
-      history.push('/login');
-    });
+
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (!res.message) {
+          handleRegister('success');
+        } else {
+          handleRegisterError('fail');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (

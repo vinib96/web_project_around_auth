@@ -12,10 +12,8 @@ function Login({ handleLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
     auth.authorize(email, password).then((res) => {
-      console.log(res);
       handleLogin();
       history.push('/');
-      console.log('ola');
     });
   }
 

@@ -20,7 +20,7 @@ function Login({ handleLogin }) {
   return (
     <>
       <Header text={'Entrar'}></Header>
-      <div className='auth__container'>
+      <form className='auth__container' onSubmit={handleSubmit}>
         <h3 className='auth__title'>Entrar</h3>
         <label>
           <input
@@ -29,8 +29,8 @@ function Login({ handleLogin }) {
             id='email-input'
             className='auth__input'
             placeholder='E-Mail'
-            minLength='2'
-            maxLength='40'
+            minLength={2}
+            maxLength={40}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -43,14 +43,14 @@ function Login({ handleLogin }) {
             id='password-input'
             className='auth__input'
             placeholder='Senha'
-            minLength='2'
-            maxLength='200'
+            minLength={2}
+            maxLength={200}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <button type='submit' className='auth__buttom' onClick={handleSubmit}>
+        <button type='submit' className='auth__buttom'>
           Entrar
         </button>
         <span className='auth__subtitle'>
@@ -59,7 +59,7 @@ function Login({ handleLogin }) {
             Inscreva-se aqui!
           </Link>
         </span>
-      </div>
+      </form>
     </>
   );
 }

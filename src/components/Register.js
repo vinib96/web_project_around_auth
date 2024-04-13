@@ -28,7 +28,7 @@ function Register({ handleRegister, handleRegisterError }) {
   return (
     <>
       <Header text={'Faça o login'}></Header>
-      <div className='auth__container'>
+      <form className='auth__container' onSubmit={handleSubmit}>
         <h3 className='auth__title'>Inscrever-se</h3>
         <label>
           <input
@@ -37,8 +37,8 @@ function Register({ handleRegister, handleRegisterError }) {
             id='email-input'
             className='auth__input'
             placeholder='E-Mail'
-            minLength='2'
-            maxLength='40'
+            minLength={2}
+            maxLength={40}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -51,14 +51,14 @@ function Register({ handleRegister, handleRegisterError }) {
             id='password-input'
             className='auth__input'
             placeholder='Senha'
-            minLength='2'
-            maxLength='200'
+            minLength={2}
+            maxLength={200}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <button type='submit' className='auth__buttom' onClick={handleSubmit}>
+        <button type='submit' className='auth__buttom'>
           Inscrever-se
         </button>
         <span className='auth__subtitle'>
@@ -67,7 +67,7 @@ function Register({ handleRegister, handleRegisterError }) {
             Faça o login aqui!!
           </Link>
         </span>
-      </div>
+      </form>
     </>
   );
 }

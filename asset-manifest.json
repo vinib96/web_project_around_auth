@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/web_project_around_react/static/css/main.f8a6bc8a.css",
-    "main.js": "/web_project_around_react/static/js/main.bb9c820d.js",
-    "static/js/787.bf20448d.chunk.js": "/web_project_around_react/static/js/787.bf20448d.chunk.js",
-    "static/media/Inter-Medium.woff2": "/web_project_around_react/static/media/Inter-Medium.19e05b2238d4f2d8d3d5.woff2",
-    "static/media/Inter-Black.woff2": "/web_project_around_react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
-    "static/media/Inter-Regular.woff2": "/web_project_around_react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
-    "static/media/like__button.svg": "/web_project_around_react/static/media/like__button.3826c074a1b94b101e38.svg",
-    "index.html": "/web_project_around_react/index.html",
-    "main.f8a6bc8a.css.map": "/web_project_around_react/static/css/main.f8a6bc8a.css.map",
-    "main.bb9c820d.js.map": "/web_project_around_react/static/js/main.bb9c820d.js.map",
-    "787.bf20448d.chunk.js.map": "/web_project_around_react/static/js/787.bf20448d.chunk.js.map"
+    "main.css": "/web_project_around_auth/static/css/main.b3e8d5c3.css",
+    "main.js": "/web_project_around_auth/static/js/main.f73dcdb4.js",
+    "static/js/787.bf20448d.chunk.js": "/web_project_around_auth/static/js/787.bf20448d.chunk.js",
+    "static/media/Inter-Medium.woff2": "/web_project_around_auth/static/media/Inter-Medium.19e05b2238d4f2d8d3d5.woff2",
+    "static/media/Inter-Black.woff2": "/web_project_around_auth/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/web_project_around_auth/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/like__button.svg": "/web_project_around_auth/static/media/like__button.3826c074a1b94b101e38.svg",
+    "index.html": "/web_project_around_auth/index.html",
+    "main.b3e8d5c3.css.map": "/web_project_around_auth/static/css/main.b3e8d5c3.css.map",
+    "main.f73dcdb4.js.map": "/web_project_around_auth/static/js/main.f73dcdb4.js.map",
+    "787.bf20448d.chunk.js.map": "/web_project_around_auth/static/js/787.bf20448d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f8a6bc8a.css",
-    "static/js/main.bb9c820d.js"
+    "static/css/main.b3e8d5c3.css",
+    "static/js/main.f73dcdb4.js"
   ]
 }

@@ -1,6 +1,6 @@
 # PROJETO: "AO REDOR DOS EUA" - Autorização e Registro
 
-O projeto "Ao redor dos EUA - Autorização e Registro" (referente a Sprint 15) do curso de "Desenvolvedor Web" da TripleTen consistiu na criação de uma página web onde os usuários podem se registrar, fazer login, adicionar, remover e curtir fotos, bem como editar informações e o avatar de seu perfil. O objetivo é utilizarmos a biblioteca React para criação do aplicativo, refatorar o código do [projeto anterior](https://github.com/vinib96/web_project_around) e adicionar uma página de registro e login (com rotas protegidas).
+O projeto "Ao Redor dos EUA - Autorização e Registro" (Sprint 15) do curso de "Desenvolvedor Web" da TripleTen teve como objetivo criar uma aplicação web que permite aos usuários se registrar, fazer login, gerenciar fotos (adicionar, remover e curtir), e editar informações e o avatar de seus perfis. Para isso, utilizei a biblioteca React, refatorei o código de um [projeto anterior](https://github.com/vinib96/web_project_around) e implementei páginas de registro e login com rotas protegidas, garantindo a segurança e personalização da experiência do usuário. A refatoração do código resultou em um sistema mais organizado e eficiente, melhorando a manutenção futura e a escalabilidade do projeto.
 
 ## Funcionalidades
 
